@@ -1,3 +1,4 @@
+#include <algorithm>
 /***************************************************************************
  *   Copyright (C) 2006 by Michael Zugaro                                  *
  *   michael.zugaro@college-de-france.fr                                   *
@@ -137,7 +138,7 @@ void UnitListPage::removeUnit()
                 }
             }
         }
-        qSort(lst);
+        std::sort(lst.begin(), lst.end());
         for(int i = lst.count()-1; i>=0; --i) {
             unitTable->removeRow(lst.at(i));
         }
@@ -177,7 +178,7 @@ void UnitListPage::unitChanged(int row,int column)
     const QString unit = unitTable->item(row,column)->text();
     //the group and cluster entries should only contain digits
     //the I.D. entry should only contain digits and '.'
-    if((column==0||column==1)&&(unit.contains(QRegExp("[^\\d]"))!=0)||(column==4&&(unit.contains(QRegExp("[^\\d.]"))!=0)))
+    if((column==0||column==1)&&(unit.contains(QRegularExpression("[^\\d]"))!=0)||(column==4&&(unit.contains(QRegularExpression("[^\\d.]"))!=0)))
     {
         isIncorrect = true;
         incorrectRow = row;

@@ -100,13 +100,13 @@ void ndManager::setupActions()
     QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 
     mNewAction = fileMenu->addAction(tr("&New..."));
-    mNewAction->setIcon(QPixmap(":/shared-icons/document-new"));
+    mNewAction->setIcon(QIcon::fromTheme("document-new", QIcon(":/shared-icons/document-new")));
     mNewAction->setShortcut(QKeySequence::New);
     connect(mNewAction, SIGNAL(triggered()), this, SLOT(slotNewFile()));
 
 
     mOpenAction = fileMenu->addAction(tr("&Open..."));
-    mOpenAction->setIcon(QPixmap(":/shared-icons/document-open"));
+    mOpenAction->setIcon(QIcon::fromTheme("document-open", QIcon(":/shared-icons/document-open")));
     mOpenAction->setShortcut(QKeySequence::Open);
     connect(mOpenAction, SIGNAL(triggered()), this, SLOT(slotFileOpen()));
 
@@ -122,12 +122,12 @@ void ndManager::setupActions()
 
     fileMenu->addSeparator();
     mSaveAction = fileMenu->addAction(tr("Save..."));
-    mSaveAction->setIcon(QPixmap(":/shared-icons/document-save"));
+    mSaveAction->setIcon(QIcon::fromTheme("document-save", QIcon(":/shared-icons/document-save")));
     mSaveAction->setShortcut(QKeySequence::Save);
     connect(mSaveAction, SIGNAL(triggered()), this, SLOT(slotSave()));
 
     mSaveAsAction = fileMenu->addAction(tr("&Save As..."));
-    mSaveAsAction->setIcon(QPixmap(":/shared-icons/document-save-as"));
+    mSaveAsAction->setIcon(QIcon::fromTheme("document-save-as", QIcon(":/shared-icons/document-save-as")));
     mSaveAsAction->setShortcut(QKeySequence::SaveAs);
     connect(mSaveAsAction, SIGNAL(triggered()), this, SLOT(slotSaveAs()));
 
@@ -144,7 +144,7 @@ void ndManager::setupActions()
 
 
     mCloseAction = fileMenu->addAction(tr("Close"));
-    mCloseAction->setIcon(QPixmap(":/shared-icons/document-close"));
+    mCloseAction->setIcon(QIcon::fromTheme("document-close", QIcon(":/shared-icons/document-close")));
     mCloseAction->setShortcut(QKeySequence::Close);
     connect(mCloseAction, SIGNAL(triggered()), this, SLOT(slotFileClose()));
 
@@ -152,7 +152,7 @@ void ndManager::setupActions()
     fileMenu->addSeparator();
 
     mQuitAction = fileMenu->addAction(tr("Quit"));
-    mQuitAction->setIcon(QPixmap(":/shared-icons/window-close"));
+    mQuitAction->setIcon(QIcon::fromTheme("window-close", QIcon(":/shared-icons/window-close")));
     mQuitAction->setShortcut(QKeySequence::Quit);
     connect(mQuitAction, SIGNAL(triggered()), this, SLOT(close()));
 
@@ -690,7 +690,7 @@ void ndManager::slotQuery(){
         html.replace("QUERY_RESULTS",queryResult);
         html.replace("QUERY",queryInputDialog->getQuery());
         // 2) Convert HTML table to plain text (so the user can save the results as text)
-        queryResult.replace(QRegExp("<tr[^>]*><td><a[^>]*>"),"");
+        queryResult.replace(QRegularExpression("<tr[^>]*><td><a[^>]*>"),"");
         queryResult.replace("</a>","");
         queryResult.replace("</td><td>","\t");
         queryResult.replace("</td></tr>","");

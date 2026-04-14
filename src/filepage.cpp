@@ -1,3 +1,4 @@
+#include <algorithm>
 /***************************************************************************
  *   Copyright (C) 2004 by Lynn Hazan                                      *
  *   lynn.hazan@myrealbox.com                                              *
@@ -112,7 +113,7 @@ void FilePage::removeChannel(){
                 rowsToRemove.append(selection.topRow() + i);
             }
         }
-        qSort(rowsToRemove);
+        std::sort(rowsToRemove.begin(), rowsToRemove.end());
         //Actually remove the rows
         for(int i = rowsToRemove.count()-1; i>=0;--i) {
             mappingTable->removeRow(rowsToRemove.at(i));
@@ -155,7 +156,7 @@ QMap<int, QList<int> > FilePage::getChannelMapping()const{
         if(channelList == " " || channelList.isEmpty())
             continue;
 
-        QStringList channelParts = channelList.split(" ", QString::SkipEmptyParts);
+        QStringList channelParts = channelList.split(" ", Qt::SkipEmptyParts);
         for(uint j = 0;j < channelParts.count(); ++j)
             channels.append(channelParts.at(j).toInt());
         channelMapping.insert(channelId,channels);
@@ -178,7 +179,7 @@ void FilePage::mappingChanged(int row,int column){
     modified = true;
     QString channel = mappingTable->item(row,column)->text();
     //the group entry should only contain digits and whitespaces
-    if(channel.contains(QRegExp("[^\\d\\s]")) != 0){
+    if(channel.contains(QRegularExpression("[^\\d\\s]")) != 0){
         isIncorrectRow = true;
         incorrectRow = row;
         mappingTable->selectRow(row);
@@ -186,7 +187,7 @@ void FilePage::mappingChanged(int row,int column){
     else{
         if(isIncorrectRow){
             QString incorrectMapping = mappingTable->item(incorrectRow,0)->text();
-            if(incorrectMapping.contains(QRegExp("[^\\d\\s]")) != 0)
+            if(incorrectMapping.contains(QRegularExpression("[^\\d\\s]")) != 0)
                 return;
         }
         isIncorrectRow = false;

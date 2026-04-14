@@ -1,3 +1,4 @@
+#include <algorithm>
 /***************************************************************************
  *   Copyright (C) 2004 by Lynn Hazan                                      *
  *   lynn.hazan@myrealbox.com                                              *
@@ -137,7 +138,7 @@ void AnatomyPage::getGroups(QMap<int, QList<int> >& groups)const{
         QString channelList = item.simplified();
         if(channelList == " ")
             continue;
-        const QStringList channelParts = channelList.split(" ", QString::SkipEmptyParts);
+        const QStringList channelParts = channelList.split(" ", Qt::SkipEmptyParts);
 
         for(uint j = 0;j < channelParts.count(); ++j) {
             channels.append(channelParts.at(j).toInt());
@@ -166,7 +167,7 @@ void AnatomyPage::removeGroup()
                 }
             }
         }
-        qSort(lst);
+        std::sort(lst.begin(), lst.end());
         for(int i = lst.count()-1; i>=0; --i) {
             groupTable->removeRow(lst.at(i));
         }
@@ -193,7 +194,7 @@ void AnatomyPage::groupChanged(int row,int column){
         else if(widget == 0)
             incorrectGroup = groupTable->item(incorrectRow,0)->text();
 
-        if(incorrectGroup.contains(QRegExp("[^\\d\\s]")) != 0){
+        if(incorrectGroup.contains(QRegularExpression("[^\\d\\s]")) != 0){
             groupTable->selectRow(incorrectRow);
             groupTable->setCurrentCell(incorrectRow,0);
             return;
@@ -204,7 +205,7 @@ void AnatomyPage::groupChanged(int row,int column){
     //groupTable->adjustRow(row);
 
     //the group entry should only contain digits and whitespaces
-    if(group.contains(QRegExp("[^\\d\\s]")) != 0){
+    if(group.contains(QRegularExpression("[^\\d\\s]")) != 0){
         isIncorrectRow = true;
         incorrectRow = row;
         groupTable->selectRow(incorrectRow);

@@ -27,7 +27,7 @@
 #include <qwidget.h>
 #include <qpushbutton.h>
 #include <qmap.h>
-#include <qregexp.h>
+#include <QRegularExpression>
 #include <qlineedit.h>
 
 #include <QEvent>

@@ -22,7 +22,7 @@
 
 // include files for QT
 #include <qstring.h>
-#include <qregexp.h>
+#include <QRegularExpression>
 
 
 /**
@@ -32,7 +32,7 @@ namespace  Helper{
     static QString doubleToString(double value){
 
         QString stringValue = QString::fromLatin1("%1").arg(value,0,'g',14);
-        /* QRegExp regexp("(?:([0-9]*[.][0-9]*[1-9])0*$)|(?:([0-9]*)[.]0*$)");
+        /* QRegularExpression regexp("(?:([0-9]*[.][0-9]*[1-9])0*$)|(?:([0-9]*)[.]0*$)");
     return stringValue.replace(regexp,"\\1\\2");*/
         return stringValue;
     }

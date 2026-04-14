@@ -14,7 +14,7 @@ ColorTable::~ColorTable()
 
 void ColorTable::mousePressEvent ( QMouseEvent * event)
 {
-    if(event->button() == Qt::MidButton) {
+    if(event->button() == Qt::MiddleButton) {
         QTableWidgetItem *item = itemAt(event->pos());
         if(item) {
             const QColor color(item->text());

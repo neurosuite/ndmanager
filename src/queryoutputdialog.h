@@ -21,7 +21,7 @@
 #define QUERYOUTPUTDIALOG_H
 
 #include <qpagedialog.h>
-#include <QWebView>
+#include <QWebEngineView>
 
 
 /**
@@ -40,7 +40,7 @@ public slots:
     void slotUser2();
 
 private:
-    QWebView        *html;
+    QWebEngineView        *html;
     QString		htmlText;
     QString		queryResult;
 };

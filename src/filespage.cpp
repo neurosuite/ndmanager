@@ -36,7 +36,7 @@ FilesPage::FilesPage(QWidget* parent)
     : QFrame(parent){
 
     QVBoxLayout* frameLayout = new QVBoxLayout(this);
-    frameLayout->setMargin(0);
+    frameLayout->setContentsMargins(0, 0, 0, 0);
     frameLayout->setSpacing(0);
     tabWidget = new QTabWidget(this);
     frameLayout->addWidget(tabWidget);

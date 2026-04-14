@@ -98,7 +98,7 @@ QString NdManagerUtils::findExecutable(const QString &executableName, const QStr
         const QLatin1Char pathSep(':');
 #endif
         // Remove trailing slashes, which occur on Windows.
-        const QStringList rawPaths = QString::fromLocal8Bit(pEnv.constData()).split(pathSep, QString::SkipEmptyParts);
+        const QStringList rawPaths = QString::fromLocal8Bit(pEnv.constData()).split(pathSep, Qt::SkipEmptyParts);
         searchPaths.reserve(rawPaths.size());
         foreach (const QString &rawPath, rawPaths) {
             QString cleanPath = QDir::cleanPath(rawPath);

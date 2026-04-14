@@ -40,7 +40,7 @@ NeuroscopeVideoPage::NeuroscopeVideoPage(QWidget* parent)
 
     //Set an icon on the backgroundButton button
 
-    backgroundButton->setIcon(QIcon(":/shared-icons/folder-open"));
+    backgroundButton->setIcon(QIcon::fromTheme("folder-open", QIcon(":/shared-icons/folder-open")));
 }
 
 

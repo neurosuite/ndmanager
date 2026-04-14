@@ -1,3 +1,4 @@
+#include <algorithm>
 /***************************************************************************
  *   Copyright (C) 2004 by Lynn Hazan                                      *
  *   lynn.hazan@myrealbox.com                                              *
@@ -192,7 +193,7 @@ void ParameterPage::removeParameter(){
                 }
             }
         }
-        qSort(lst);
+        std::sort(lst.begin(), lst.end());
         for(int i = lst.count()-1; i>=0; --i) {
             parameterTable->removeRow(lst.at(i));
         }

@@ -37,7 +37,7 @@ ManagerView::ManagerView(QWidget *parent)
 {
     frameLayout = new QVBoxLayout(this);
     frameLayout->setSpacing(0);
-    frameLayout->setMargin(0);
+    frameLayout->setContentsMargins(0, 0, 0, 0);
 }
 
 

@@ -417,7 +417,7 @@ void ParameterView::initialize(QMap<int, QList<int> >& anatomicalGroups,QMap<QSt
                 } else {
                     QTextStream stream(&file);
                     QString firstLine = stream.readLine();
-                    const int i = firstLine.indexOf(QRegExp("^#!"));
+                    const int i = firstLine.indexOf(QRegularExpression("^#!"));
 
                     if(i != -1) {
                         scriptView->setText(stream.readAll());
@@ -490,7 +490,7 @@ void ParameterView::loadProgram(const QString &programUrl) {
             else{
                 QTextStream stream(&file);
                 QString firstLine = stream.readLine();
-                const int i = firstLine.indexOf(QRegExp("^#!"));
+                const int i = firstLine.indexOf(QRegularExpression("^#!"));
 
                 if(i != -1){
                     scriptView->setText(stream.readAll());

@@ -26,7 +26,7 @@
 // include files for QT
 #include <qwidget.h>
 #include <qpushbutton.h>
-#include <qregexp.h>
+#include <QRegularExpression>
 #include <qlineedit.h>
 
 #include <QEvent>

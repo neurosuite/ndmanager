@@ -20,11 +20,13 @@
 #include "queryoutputdialog.h"
 
 #include <QTextStream>
+#include <QWebEngineView>
+#include <QWebEngineSettings>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QHBoxLayout>
 
-#include <QWebSettings>
+
 
 QueryOutputDialog::QueryOutputDialog(const QString& htmlText,const QString& queryResult,QWidget *parent,const QString& caption,const QString& urltext) :
     QPageDialog(parent),
@@ -40,7 +42,7 @@ QueryOutputDialog::QueryOutputDialog(const QString& htmlText,const QString& quer
     setButtonText( User2, tr("Save As HTML") );
     QWidget * w = new QWidget(this);
     QHBoxLayout *lay = new QHBoxLayout;
-    html = new QWebView(w);
+    html = new QWebEngineView(w);
     lay->addWidget(html);
     w->setLayout(lay);
 
@@ -48,11 +50,11 @@ QueryOutputDialog::QueryOutputDialog(const QString& htmlText,const QString& quer
 
     html->setHtml(htmlText);
     html->reload();
-    html->settings()->setAttribute(QWebSettings::JavascriptEnabled, false);
-    html->settings()->setAttribute(QWebSettings::JavaEnabled,false);
-    html->settings()->setAttribute(QWebSettings::PluginsEnabled,false);
-    html->settings()->setAttribute(QWebSettings::LocalContentCanAccessFileUrls, true);
-    html->settings()->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls,false);
+    html->settings()->setAttribute(QWebEngineSettings::JavascriptEnabled, false);
+    html->settings()->setAttribute(QWebEngineSettings::AutoLoadImages,false);
+    html->settings()->setAttribute(QWebEngineSettings::PluginsEnabled,false);
+    html->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
+    html->settings()->setAttribute(QWebEngineSettings::ShowScrollBars,false);
     resize(800,600);
     connect(this, SIGNAL(user1Clicked()), SLOT(slotUser1()));
     connect(this, SIGNAL(user2Clicked()), SLOT(slotUser2()));

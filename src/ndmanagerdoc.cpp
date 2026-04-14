@@ -36,7 +36,7 @@
 #include "programinformation.h"
 #include "parameterview.h"
 
-#include <qstandardpaths.h>
+#include <QStandardPaths>
 
 
 using namespace ndmanager;
@@ -92,14 +92,14 @@ ndManagerDoc::OpenSaveCreateReturnMessage ndManagerDoc::openDocument(const QStri
         //Files info
         reader.getFilesInformation(files);
         //Anatomical and spike groups
-        reader.getAnatomicalDescription(static_cast<int>(acquisitionSystemInfo[NB_CHANNELS]),anatomicalGroups,attributes);
+        reader.getAnatomicalDescription(static_cast<int>(acquisitionSystemInfo[ndmanager::NB_CHANNELS]),anatomicalGroups,attributes);
         if(anatomicalGroups.contains(0)){
             spikeGroups.insert(0,anatomicalGroups[0]);
             //The trash group is not store as it is not shown (channels that are not in any group are in the trash group).
             //It will not be keep in the spike group either.
             if(anatomicalGroups.contains(0)) anatomicalGroups.remove(0);
         }
-        reader.getSpikeDescription(static_cast<int>(acquisitionSystemInfo[NB_CHANNELS]),spikeGroups,spikeGroupsInformation);
+        reader.getSpikeDescription(static_cast<int>(acquisitionSystemInfo[ndmanager::NB_CHANNELS]),spikeGroups,spikeGroupsInformation);
 
         //Units information
         reader.getUnits(units);
@@ -115,7 +115,7 @@ ndManagerDoc::OpenSaveCreateReturnMessage ndManagerDoc::openDocument(const QStri
         //Build the list of channel default offsets
         reader.getChannelDefaultOffset(channelDefaultOffsets);
         //if no default offset are available in the file, set the default offset to 0
-        int channelNb = static_cast<int>(acquisitionSystemInfo[NB_CHANNELS]);
+        int channelNb = static_cast<int>(acquisitionSystemInfo[ndmanager::NB_CHANNELS]);
         if(channelDefaultOffsets.size() == 0){
             for(int i = 0; i < channelNb; ++i) channelDefaultOffsets.insert(i,0);
         }

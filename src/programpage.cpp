@@ -30,7 +30,7 @@
 #include <qfileinfo.h>
 #include <QTextStream>
 #include <qapplication.h>
-#include <qregexp.h>
+#include <QRegularExpression>
 #include <QDebug>
 #include <qtextedit.h>
 
@@ -54,7 +54,7 @@ ProgramPage::ProgramPage(bool expertMode,QWidget *parent, const QString& name)
 {
     setObjectName(name);
     QVBoxLayout* frameLayout = new QVBoxLayout(this);
-    frameLayout->setMargin(0);
+    frameLayout->setContentsMargins(0, 0, 0, 0);
     frameLayout->setSpacing(0);
     //Creat the upper part containing a tabWidget with 3 tabs, one with the parameters (ParameterPage), one with the script and one with the help.
     //In expert mode, the script tab does not exist.
@@ -286,7 +286,7 @@ void ProgramPage::nameChanged(const QString& name){
                 } else {
                     QTextStream stream(&file);
                     QString firstLine = stream.readLine();
-                    const int i = firstLine.indexOf(QRegExp("^#!"));
+                    const int i = firstLine.indexOf(QRegularExpression("^#!"));
                     if(i != -1){
                         scriptView->setPlainText(stream.readAll());
                         file.close();

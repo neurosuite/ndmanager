@@ -25,7 +25,7 @@
 #include <qlayout.h>
 #include <qpushbutton.h> 
 #include <qlabel.h>
-#include <qregexp.h> 
+#include <QRegularExpression> 
 
 #include <QGridLayout>
 #include <QTextStream>
@@ -41,7 +41,7 @@ ProgramsPage::ProgramsPage(bool expertMode,QWidget *parent)
 {
 
     QVBoxLayout* frameLayout = new QVBoxLayout(this);
-    frameLayout->setMargin(0);
+    frameLayout->setContentsMargins(0, 0, 0, 0);
     frameLayout->setSpacing(0);
 
     const QString message = tr("Here you can add a new plugin description or load an existing one from disk.");
@@ -92,7 +92,7 @@ ProgramsPage::ProgramsPage(bool expertMode,QWidget *parent)
 
     //Set an icon on the load button
 
-    loadButton->setIcon(QIcon(":/shared-icons/folder-open"));
+    loadButton->setIcon(QIcon::fromTheme("folder-open", QIcon(":/shared-icons/folder-open")));
 
     connect(loadButton,SIGNAL(clicked()),this,SLOT(loadProgram()));
 }
@@ -123,7 +123,7 @@ void ProgramsPage::loadProgram(){
             } else {
                 QTextStream stream(&file);
                 QString firstLine = stream.readLine();
-                const int i = firstLine.indexOf(QRegExp("^<\\?xml version"));
+                const int i = firstLine.indexOf(QRegularExpression("^<\\?xml version"));
                 file.close();
                 if(i == -1){
                     QString message = tr("The file %1 is not an xml file.").arg(filePath);

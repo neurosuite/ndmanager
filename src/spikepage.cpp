@@ -1,3 +1,4 @@
+#include <algorithm>
 /***************************************************************************
  *   Copyright (C) 2004 by Lynn Hazan                                      *
  *   lynn.hazan@myrealbox.com                                              *
@@ -134,7 +135,7 @@ void SpikePage::getGroups(QMap<int, QList<int> >& groups)const{
         QString channelList = item.simplified();
         if(channelList == " ")
             continue;
-        QStringList channelParts = channelList.split(" ", QString::SkipEmptyParts);
+        QStringList channelParts = channelList.split(" ", Qt::SkipEmptyParts);
         for(uint j = 0;j < channelParts.count(); ++j)
             channels.append(channelParts[j].toInt());
         groups.insert(groupId,channels);
@@ -183,7 +184,7 @@ void SpikePage::removeGroup(){
                 }
             }
         }
-        qSort(lst);
+        std::sort(lst.begin(), lst.end());
         for(int i = lst.count()-1; i>=0; --i) {
            groupTable->removeRow(lst.at(i));
         }
@@ -202,7 +203,7 @@ void SpikePage::groupChanged(int row,int column){
             incorrectGroup = static_cast<QLineEdit*>(widget)->text();
         else if(widget == 0)
             incorrectGroup = groupTable->item(incorrectRow,incorrectColumn)->text();
-        if(incorrectGroup.contains(QRegExp("[^\\d\\s]")) != 0){
+        if(incorrectGroup.contains(QRegularExpression("[^\\d\\s]")) != 0){
             groupTable->selectRow(incorrectRow);
             groupTable->setCurrentCell(incorrectRow,incorrectColumn);
             return;
@@ -215,7 +216,7 @@ void SpikePage::groupChanged(int row,int column){
     //groupTable->adjustRow(row);
 
     //the group entry should only contain digits and whitespaces
-    if(group.contains(QRegExp("[^\\d\\s]")) != 0){
+    if(group.contains(QRegularExpression("[^\\d\\s]")) != 0){
         isIncorrectRow = true;
         incorrectRow = row;
         incorrectColumn = column;

@@ -35,7 +35,7 @@ QueryInputPathWidget::QueryInputPathWidget(QWidget *parent)
     mPushButton = new QPushButton;
     lay->addWidget(mLineEdit);
     connect(mLineEdit, SIGNAL(textChanged(QString)), this, SIGNAL(textChanged(QString)));
-    mPushButton->setIcon(QPixmap(":/shared-icons/document-open"));
+    mPushButton->setIcon(QIcon::fromTheme("document-open", QIcon(":/shared-icons/document-open")));
     lay->addWidget(mPushButton);
     connect(mPushButton, SIGNAL(clicked()), SLOT(slotSelectPath()));
     setLayout(lay);
@@ -78,7 +78,7 @@ QueryInputDialog::QueryInputDialog(QWidget *parent,const QString& caption,const 
     page = new QWidget(this);
     lay->addWidget(page);
     QVBoxLayout *layout = new QVBoxLayout(page);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     QLabel *label1 = new QLabel(tr("Query"),page);
     label1->setObjectName("query_label");

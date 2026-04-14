@@ -27,7 +27,7 @@
 // include files for QT
 #include <qwidget.h>
 #include <qlineedit.h>
-#include <qregexp.h>
+#include <QRegularExpression>
 
 #include <QEvent>
 #include <QList>
