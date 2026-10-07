@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The default parameter file and templates are installed to `share/ndmanager`.
 - Installs a desktop entry and AppStream metadata under the ID `io.github.neurosuite.NDManager`.
 - Windows and macOS packages bundle the Qt runtime (Windows also the MSVC runtime) and show the handbook with the
-  built-in viewer (QTextBrowser), as does the AppImage; the .deb uses QtWebEngine.
+  built-in viewer (QTextBrowser), as does the AppImage. The .deb uses QtWebEngine.
 - Licence file corrected to GPL-3.0-or-later, matching the source headers.
 
 ### Fixed
