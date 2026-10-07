@@ -37,6 +37,9 @@
 #include "parameterview.h"
 
 #include <QStandardPaths>
+#include <QApplication>
+#include <QFile>
+#include "config-ndmanager.h"
 
 
 using namespace ndmanager;
@@ -142,15 +145,15 @@ ndManagerDoc::OpenSaveCreateReturnMessage ndManagerDoc::openDocument(const QStri
 }
 
 ndManagerDoc::OpenSaveCreateReturnMessage ndManagerDoc::newDocument(){
-    //If the user has no local version of the file the system default is used
-#ifdef Q_WS_WIN
-	// In Windows, QStandardPaths returns the path to user applications, not not system applications
-	// Therefore we cannot use it here
-	QString path(getenv("PROGRAMFILES"));
-	path += QLatin1String("/NDManager/share/applications/ndmanager/ndManagerDefault.xml");
-#else	
-    QString path = QStandardPaths::locate (QStandardPaths::ApplicationsLocation, QLatin1String("ndmanager/ndManagerDefault.xml"));
-#endif
+    // A default saved by the user (see saveDefault()) takes precedence over the
+    // one installed with NDManager, which is found relative to the executable.
+    QString path = QStandardPaths::locate(QStandardPaths::AppDataLocation, QStringLiteral("ndManagerDefault.xml"));
+    if (path.isEmpty()) {
+        const QString installed = QApplication::applicationDirPath() + QLatin1String(NDMANAGER_DATA_PATH)
+                                  + QLatin1String("ndManagerDefault.xml");
+        if (QFile::exists(installed))
+            path = installed;
+    }
     if (path.isEmpty()) {
        qDebug()<<" ndManagerDefault.xml is not found. Verify install";
        QMessageBox::critical (0, QObject::tr("Error!"),QObject::tr("The file ndManagerDefault.xml does not exist. Please verify installation"));
@@ -223,9 +226,9 @@ ndManagerDoc::OpenSaveCreateReturnMessage ndManagerDoc::save(const QString& url)
 
 ndManagerDoc::OpenSaveCreateReturnMessage ndManagerDoc::saveDefault(){
 
-    QString path = QStandardPaths::writableLocation(QStandardPaths::ApplicationsLocation);
+    QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     QDir dir(path);
-    bool ok = dir.mkpath(path);
+    dir.mkpath(path);
     path = path + QDir::separator() + QLatin1String("ndManagerDefault.xml");
 
     return save(path);
