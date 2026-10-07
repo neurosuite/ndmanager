@@ -85,7 +85,13 @@ endif()
 
 target_link_libraries(ndmanager PRIVATE neurosuite::neurosuite Qt6::Widgets Qt6::PrintSupport Qt6::Xml)
 
-# Bundle the Qt runtime on Windows and macOS at install time.
+if(APPBUNDLE)
+    install(TARGETS ndmanager BUNDLE DESTINATION ".")
+else()
+    install(TARGETS ndmanager RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+endif()
+
+# Bundle the Qt runtime on Windows and macOS at install time (after the target is installed).
 if(WIN32 OR APPBUNDLE)
     qt_generate_deploy_app_script(
         TARGET ndmanager
@@ -93,12 +99,6 @@ if(WIN32 OR APPBUNDLE)
         NO_UNSUPPORTED_PLATFORM_ERROR
     )
     install(SCRIPT ${NDMANAGER_DEPLOY_SCRIPT})
-endif()
-
-if(APPBUNDLE)
-    install(TARGETS ndmanager BUNDLE DESTINATION ".")
-else()
-    install(TARGETS ndmanager RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 
 # Default parameter file and parameter templates
