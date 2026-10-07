@@ -20,8 +20,7 @@
 #include "queryoutputdialog.h"
 
 #include <QTextStream>
-#include <QWebEngineView>
-#include <QWebEngineSettings>
+#include <QTextBrowser>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QHBoxLayout>
@@ -42,19 +41,16 @@ QueryOutputDialog::QueryOutputDialog(const QString& htmlText,const QString& quer
     setButtonText( User2, tr("Save As HTML") );
     QWidget * w = new QWidget(this);
     QHBoxLayout *lay = new QHBoxLayout;
-    html = new QWebEngineView(w);
+    // The report is static HTML with simple CSS, which QTextBrowser renders
+    // without needing QtWebEngine.
+    html = new QTextBrowser(w);
+    html->setOpenExternalLinks(true);
     lay->addWidget(html);
     w->setLayout(lay);
 
     addPage(w,QString());
 
     html->setHtml(htmlText);
-    html->reload();
-    html->settings()->setAttribute(QWebEngineSettings::JavascriptEnabled, false);
-    html->settings()->setAttribute(QWebEngineSettings::AutoLoadImages,false);
-    html->settings()->setAttribute(QWebEngineSettings::PluginsEnabled,false);
-    html->settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
-    html->settings()->setAttribute(QWebEngineSettings::ShowScrollBars,false);
     resize(800,600);
     connect(this, SIGNAL(user1Clicked()), SLOT(slotUser1()));
     connect(this, SIGNAL(user2Clicked()), SLOT(slotUser2()));

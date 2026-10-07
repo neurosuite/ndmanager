@@ -21,7 +21,6 @@
 #define QUERYOUTPUTDIALOG_H
 
 #include <qpagedialog.h>
-#include <QWebEngineView>
 
 
 /**
@@ -29,6 +28,8 @@ Dialog used to display result from query.
 
     @author Michaël Zugaro <michael.zugaro@college-de-france.fr>
 */
+class QTextBrowser;
+
 class QueryOutputDialog : public QPageDialog
 {
     Q_OBJECT
@@ -40,7 +41,7 @@ public slots:
     void slotUser2();
 
 private:
-    QWebEngineView        *html;
+    QTextBrowser    *html;
     QString		htmlText;
     QString		queryResult;
 };
