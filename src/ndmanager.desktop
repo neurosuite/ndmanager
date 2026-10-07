@@ -1,9 +1,11 @@
 [Desktop Entry]
 Type=Application
 Name=NDManager
-GenericName=Manager for neurophysiological and behavioral data
-Comment=
+GenericName=Recording Parameter Manager
+Comment=Manage recording parameters and run processing pipelines for electrophysiology data
 Icon=ndmanager
-Exec=ndmanager %u
+Exec=ndmanager %f
+TryExec=ndmanager
 MimeType=application/nphys-xml;
-Categories=Qt;Education;Science;
+Categories=Qt;Science;Biology;
+Keywords=electrophysiology;neuroscience;spike sorting;parameters;

@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 
+#include <cstdio>
 #include "config-ndmanager.h"
 // include files for QT
 #include <qdir.h>
@@ -35,6 +36,7 @@ int main(int argc, char **argv)
     QApplication::setOrganizationName("sourceforge");
     QApplication::setOrganizationDomain("sourceforge.net");
     QApplication::setApplicationName("ndmanager");
+    QGuiApplication::setDesktopFileName("io.github.neurosuite.NDManager");
 
     QApplication app(argc, argv);
     QStringList args = QApplication::arguments();
@@ -46,8 +48,13 @@ int main(int argc, char **argv)
                        << " [file]"
                        << "\n\n"
                        << "Arguments:\n"
-                       << "  -h, --help              print this help\n";
+                       << "  -h, --help              print this help\n"
+                       << "  -v, --version           print version info\n";
             return 1;
+        }
+        if (arg == "-v" || arg == "--version") {
+            printf("NDManager %s\n", NDMANAGER_VERSION);
+            return 0;
         }
         argsList.push_back(QString::fromLocal8Bit(argv[i]));
     }
